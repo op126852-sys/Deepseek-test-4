@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adam Cars — Curated Performance & Luxury Automobiles</title>
+<meta name="description" content="Adam Cars — a curated showroom of the world's finest performance and luxury automobiles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08080A; --bg-2:#0C0C0F; --surface:#111116; --surface-2:#16161C;
+  --line:rgba(255,255,255,.09); --line-2:rgba(255,255,255,.16);
+  --text:#F4F3F0; --muted:#8B8B94;
+  --gold:#C9A961; --gold-2:#E4CE96;
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --pad:clamp(20px,5vw,80px);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',system-ui,-apple-system,sans-serif;
+  line-height:1.6; overflow-x:hidden;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+img{display:block;max-width:100%;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+::selection{background:var(--gold);color:#0A0A0A;}
+::-webkit-scrollbar{width:9px;}
+::-webkit-scrollbar-track{background:#0A0A0C;}
+::-webkit-scrollbar-thumb{background:#26262E;border-radius:9px;}
+
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-spacing:-.035em;line-height:.95;margin:0;text-transform:uppercase;}
+.eyebrow{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:32px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);}
+.lead{color:var(--muted);font-size:clamp(15px,1.15vw,17px);font-weight:300;line-height:1.75;max-width:56ch;}
+.wrap{padding-inline:var(--pad);max-width:1600px;margin-inline:auto;}
+.section{position:relative;padding-block:clamp(80px,11vw,160px);}
+
+/* ---------- PRELOADER (pure CSS auto-dismiss safety net) ---------- */
+#loader{
+  position:fixed;inset:0;z-index:10000;background:#050506;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  animation:loaderAutoOut .8s var(--ease-out) 3s forwards;
+}
+@keyframes loaderAutoOut{to{opacity:0;visibility:hidden;pointer-events:none;}}
+#loader.gone{display:none !important;}
+.loader-inner{text-align:center;width:min(420px,80vw);}
+.loader-mark{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,3.4vw,34px);font-weight:700;letter-spacing:.4em;text-transform:uppercase;margin-bottom:28px;padding-left:.4em;}
+.loader-mark span{color:var(--gold);}
+.loader-bar{height:1px;width:100%;background:rgba(255,255,255,.12);overflow:hidden;position:relative;}
+.loader-bar i{position:absolute;inset:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));transform:scaleX(0);transform-origin:0 50%;}
+.loader-meta{display:flex;justify-content:space-between;margin-top:14px;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);}
+.loader-num{font-family:'Space Grotesk',sans-serif;color:var(--text);}
+noscript ~ #loader{display:none;}
+
+.grain{position:fixed;inset:-120%;z-index:9997;pointer-events:none;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainShift 7s steps(8) infinite;}
+@keyframes grainShift{0%{transform:translate(0,0)}20%{transform:translate(-9%,3%)}40%{transform:translate(-3%,7%)}60%{transform:translate(6%,4%)}80%{transform:translate(4%,6%)}100%{transform:translate(0,0)}}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,var(--gold),var(--gold-2));z-index:9999;pointer-events:none;}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:18px var(--pad);display:flex;align-items:center;justify-content:space-between;gap:24px;transition:background .5s var(--ease-out),backdrop-filter .5s,border-color .5s,padding .4s;border-bottom:1px solid transparent;}
+.nav.scrolled{background:rgba(8,8,10,.72);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);border-bottom-color:var(--line);padding-block:12px;}
+.nav-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap;}
+.nav-brand em{font-style:normal;color:var(--gold);}
+.nav-links{display:flex;gap:36px;list-style:none;margin:0;padding:0;}
+.nav-links a{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;padding-block:6px;transition:color .35s;}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--gold);transform:scaleX(0);transform-origin:100% 50%;transition:transform .5s var(--ease-out);}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:0 50%;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 28px;border-radius:100px;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;position:relative;overflow:hidden;transition:color .4s var(--ease-out),border-color .4s,transform .3s;}
+.btn span{position:relative;z-index:2;}
+.btn::before{content:'';position:absolute;inset:0;z-index:1;transform:translateY(101%);transition:transform .55s var(--ease-out);}
+.btn:hover::before{transform:translateY(0);}
+.btn:active{transform:scale(.97);}
+.btn-gold{background:var(--gold);color:#0A0A0A;}
+.btn-gold::before{background:#fff;}
+.btn-ghost{border:1px solid var(--line-2);color:var(--text);}
+.btn-ghost::before{background:var(--gold);}
+.btn-ghost:hover{color:#0A0A0A;border-color:var(--gold);}
+.nav-cta{display:none;}
+@media(min-width:1024px){.nav-cta{display:inline-flex;padding:11px 22px;}}
+.burger{display:flex;flex-direction:column;gap:5px;padding:8px;z-index:1002;}
+.burger i{display:block;width:24px;height:1.5px;background:var(--text);transition:transform .4s var(--ease-out);}
+@media(min-width:1024px){.burger{display:none;}}
+@media(max-width:1023px){
+  .nav-links{position:fixed;inset:0;background:rgba(6,6,8,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;visibility:hidden;transition:opacity .5s var(--ease-out),visibility .5s;z-index:1001;}
+  .nav-links.open{opacity:1;visibility:visible;}
+  .nav-links a{font-size:22px;letter-spacing:.16em;color:var(--text);}
+}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;padding-bottom:clamp(36px,6vw,64px);}
+.hero-media{position:absolute;inset:0;z-index:0;overflow:hidden;background:linear-gradient(140deg,#15151A,#0A0A0C 60%);}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 55%;filter:grayscale(.35) contrast(1.08) brightness(.62);}
+.hero-media::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 80% at 75% 20%,rgba(201,169,97,.14),transparent 55%),linear-gradient(180deg,rgba(8,8,10,.85) 0%,rgba(8,8,10,.35) 35%,rgba(8,8,10,.94) 100%),linear-gradient(90deg,rgba(8,8,10,.9) 0%,transparent 55%);}
+.hero-inner{position:relative;z-index:2;width:100%;}
+.hero-eyebrow{margin-bottom:clamp(18px,3vw,30px);}
+.hero-title{font-size:clamp(2.7rem,10.2vw,10rem);line-height:.88;letter-spacing:-.045em;margin-bottom:clamp(22px,3.5vw,38px);}
+.hero-title .line{display:block;}
+.hero-title .line.accent{color:transparent;background:linear-gradient(100deg,var(--gold) 0%,var(--gold-2) 45%,#9A7F3F 100%);-webkit-background-clip:text;background-clip:text;}
+.hero-bottom{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,48px);align-items:end;}
+@media(min-width:900px){.hero-bottom{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);}}
+.hero-sub{max-width:44ch;}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,2vw,28px);border-top:1px solid var(--line);padding-top:24px;}
+@media(min-width:900px){.hero-stats{border-top:none;padding-top:0;border-left:1px solid var(--line);padding-left:clamp(20px,3vw,44px);}}
+.hero-stat b{display:block;font-family:'Space Grotesk',sans-serif;font-size:clamp(24px,3.4vw,42px);font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--text);}
+.hero-stat b em{font-style:normal;color:var(--gold);font-size:.6em;}
+.hero-stat small{display:block;margin-top:8px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);}
+.scroll-cue{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);}
+.scroll-cue i{width:1px;height:44px;background:linear-gradient(180deg,var(--gold),transparent);display:block;animation:cue 2.2s var(--ease-out) infinite;transform-origin:top;}
+@keyframes cue{0%{transform:scaleY(0);opacity:0}35%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+@media(max-height:700px){.scroll-cue{display:none;}}
+.word{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.14em;margin-bottom:-.14em;}
+.word-inner{display:inline-block;}
+
+/* ---------- BAND ---------- */
+.band{border-block:1px solid var(--line);padding-block:clamp(22px,3vw,34px);overflow:hidden;background:var(--bg-2);}
+.marquee{overflow:hidden;position:relative;}
+.marquee::before,.marquee::after{content:'';position:absolute;top:0;bottom:0;width:min(140px,14vw);z-index:2;pointer-events:none;}
+.marquee::before{left:0;background:linear-gradient(90deg,var(--bg-2),transparent);}
+.marquee::after{right:0;background:linear-gradient(-90deg,var(--bg-2),transparent);}
+.marquee-track{display:flex;width:max-content;align-items:center;gap:clamp(40px,6vw,90px);}
+.band-item{font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.7vw,22px);font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:#3A3A44;white-space:nowrap;}
+.band-item.dot{color:var(--gold);font-size:9px;}
+
+/* ---------- FEATURED ---------- */
+.featured{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-2) 50%,var(--bg) 100%);}
+.featured-head{padding:0 var(--pad) clamp(28px,4vw,44px);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;}
+.featured-head h2{font-size:clamp(1.6rem,3.4vw,2.8rem);}
+.featured-count{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.24em;color:var(--muted);white-space:nowrap;}
+.featured-count b{color:var(--gold);font-weight:600;}
+.h-viewport{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;}
+.h-viewport::-webkit-scrollbar{display:none;}
+.h-track{display:flex;gap:clamp(16px,2.4vw,36px);padding-inline:var(--pad);width:max-content;}
+.car-panel{position:relative;flex:0 0 auto;width:clamp(280px,74vw,760px);height:clamp(340px,58svh,620px);border-radius:20px;overflow:hidden;background:var(--surface);border:1px solid var(--line);scroll-snap-align:center;}
+.panel-media{position:absolute;inset:0;overflow:hidden;background:linear-gradient(135deg,#1B1B22,#0C0C10);}
+.panel-media img{width:118%;height:100%;object-fit:cover;margin-left:-9%;filter:grayscale(.28) contrast(1.06) brightness(.78);transition:filter .7s var(--ease-out);}
+.car-panel:hover .panel-media img{filter:grayscale(0) contrast(1.1) brightness(.86);}
+.panel-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,10,.15) 0%,rgba(8,8,10,.05) 35%,rgba(8,8,10,.92) 100%);}
+.panel-idx{position:absolute;top:clamp(16px,2vw,26px);left:clamp(18px,2vw,30px);z-index:3;font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.5);}
+.panel-tag{position:absolute;top:clamp(14px,2vw,24px);right:clamp(16px,2vw,26px);z-index:3;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;padding:7px 14px;border-radius:100px;background:rgba(201,169,97,.14);border:1px solid rgba(201,169,97,.32);color:var(--gold-2);backdrop-filter:blur(10px);}
+.panel-body{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:clamp(20px,2.6vw,36px);}
+.panel-body h3{font-size:clamp(1.35rem,2.4vw,2.3rem);margin-bottom:6px;}
+.panel-price{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.1em;color:var(--gold);margin:0 0 clamp(16px,2vw,22px);}
+.panel-specs{display:flex;gap:clamp(18px,2.6vw,38px);list-style:none;margin:0;padding:clamp(14px,1.8vw,20px) 0 0;border-top:1px solid rgba(255,255,255,.13);}
+.panel-specs li{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.panel-specs li b{display:block;font-family:'Space Grotesk',sans-serif;font-size:clamp(15px,1.7vw,21px);font-weight:600;color:var(--text);margin-bottom:4px;text-transform:none;}
+.featured-progress{height:1px;background:var(--line);margin:clamp(26px,4vw,44px) var(--pad) 0;position:relative;}
+.featured-progress i{position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;}
+
+@media(min-width:900px){
+  .featured{height:100svh;display:flex;flex-direction:column;justify-content:center;}
+  .featured-head{position:absolute;top:0;left:0;right:0;z-index:5;padding:clamp(64px,9vw,110px) var(--pad) 0;pointer-events:none;}
+  .h-viewport{overflow:visible;padding-top:clamp(110px,15vw,180px);}
+  .h-track{width:auto;}
+  .featured-progress{position:absolute;left:var(--pad);right:var(--pad);bottom:clamp(26px,4vw,48px);margin:0;z-index:6;}
+}
+@media(max-width:899px){
+  .featured{padding-block:clamp(60px,9vw,90px) clamp(40px,6vw,60px);}
+  .featured-progress{display:none;}
+}
+
+/* ---------- STORY ---------- */
+.story{position:relative;overflow:hidden;}
+.story-grid{display:grid;grid-template-columns:1fr;gap:clamp(32px,5vw,72px);align-items:center;width:100%;}
+@media(min-width:900px){.story-grid{grid-template-columns:minmax(0,1fr) minmax(0,.85fr);}}
+.story-stage{position:relative;}
+.story-panel{display:flex;flex-direction:column;justify-content:center;}
+.story-panel + .story-panel{margin-top:clamp(38px,5vw,56px);}
+.story-idx{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,6vw,5rem);font-weight:700;line-height:1;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(201,169,97,.4);margin-bottom:clamp(14px,2vw,26px);}
+.story-panel h3{font-size:clamp(1.5rem,3.2vw,2.6rem);margin-bottom:16px;}
+.story-panel p{color:var(--muted);font-weight:300;max-width:46ch;line-height:1.8;}
+.story-visual{position:relative;aspect-ratio:16/10;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(150deg,#1A1A21,#0B0B0E);}
+.story-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.4) contrast(1.06) brightness(.7);}
+.story-visual img:nth-child(n+2){opacity:0;}
+.story-visual::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,8,10,.85));pointer-events:none;}
+.story-dots{display:none;gap:10px;margin-top:clamp(24px,3vw,36px);}
+.story-dots i{width:26px;height:2px;background:rgba(255,255,255,.16);transition:background .4s,width .4s var(--ease-out);}
+.story-dots i.on{background:var(--gold);width:44px;}
+@media(min-width:900px){
+  .story{min-height:100svh;display:flex;align-items:center;}
+  .story-stage{min-height:clamp(300px,42vh,420px);}
+  .story-panel{position:absolute;inset:0;}
+  .story-panel + .story-panel{margin-top:0;}
+  .story-panel:first-child{position:relative;}
+  .story-visual{aspect-ratio:4/5;}
+  .story-dots{display:flex;}
+}
+
+/* ---------- INVENTORY ---------- */
+.sec-head{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-end;justify-content:space-between;margin-bottom:clamp(40px,6vw,72px);}
+.sec-head h2{font-size:clamp(2rem,5.4vw,4.6rem);max-width:16ch;}
+.sec-head .lead{margin-top:18px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:clamp(28px,4vw,44px);}
+.filter-btn{padding:10px 20px;border-radius:100px;border:1px solid var(--line);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);transition:color .35s,border-color .35s,background .35s;}
+.filter-btn:hover{color:var(--text);border-color:var(--line-2);}
+.filter-btn.active{background:var(--gold);border-color:var(--gold);color:#0A0A0A;font-weight:500;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:clamp(14px,1.8vw,24px);}
+.car-card{position:relative;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);transition:border-color .5s var(--ease-out),transform .5s var(--ease-out);}
+.car-card:hover{border-color:rgba(201,169,97,.42);transform:translateY(-4px);}
+.card-media{position:relative;aspect-ratio:16/11;overflow:hidden;background:linear-gradient(135deg,#1B1B22,#0C0C10);}
+.card-media img{width:100%;height:100%;object-fit:cover;filter:grayscale(.42) contrast(1.05) brightness(.76);transition:transform 1s var(--ease-out),filter .7s var(--ease-out);}
+.car-card:hover .card-media img{transform:scale(1.06);filter:grayscale(0) contrast(1.08) brightness(.86);}
+.card-media::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(10,10,13,.9));}
+.card-badge{position:absolute;top:14px;left:14px;z-index:2;font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:6px 12px;border-radius:100px;background:rgba(10,10,13,.6);border:1px solid var(--line-2);backdrop-filter:blur(10px);color:var(--text);}
+.card-body{padding:18px 20px 22px;}
+.card-body h3{font-size:17px;margin-bottom:4px;}
+.card-sub{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin:0 0 16px;}
+.card-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;padding-top:16px;border-top:1px solid var(--line);}
+.card-price{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:600;color:var(--gold);}
+.card-specs{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.7;}
+.card-arrow{position:absolute;right:18px;top:18px;z-index:3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:rgba(201,169,97,.14);border:1px solid rgba(201,169,97,.3);color:var(--gold);opacity:0;transform:translateY(8px) scale(.85);transition:opacity .45s var(--ease-out),transform .45s var(--ease-out);backdrop-filter:blur(10px);}
+.car-card:hover .card-arrow{opacity:1;transform:translateY(0) scale(1);}
+.no-results{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--muted);font-size:13px;letter-spacing:.1em;display:none;}
+.no-results.show{display:block;}
+
+/* ---------- PERF ---------- */
+.perf{border-block:1px solid var(--line);background:radial-gradient(90% 120% at 50% 0%,rgba(201,169,97,.07),transparent 60%),var(--bg-2);}
+.perf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(28px,4vw,48px) clamp(20px,3vw,40px);}
+@media(min-width:760px){.perf-grid{grid-template-columns:repeat(4,1fr);}}
+.perf-item b{display:block;font-family:'Space Grotesk',sans-serif;font-size:clamp(2.4rem,6vw,4.4rem);font-weight:600;letter-spacing:-.05em;line-height:1;margin-bottom:12px;}
+.perf-item b em{font-style:normal;color:var(--gold);font-size:.55em;margin-left:2px;}
+.perf-item span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);display:block;padding-top:14px;border-top:1px solid var(--line);}
+
+/* ---------- TESTIMONIALS ---------- */
+.tcard{flex:0 0 auto;width:clamp(260px,32vw,400px);padding:clamp(22px,2.6vw,32px);border:1px solid var(--line);border-radius:16px;background:var(--surface);}
+.tcard p{font-size:14.5px;line-height:1.75;color:#C9C9D0;font-weight:300;margin:0 0 22px;}
+.tcard footer{display:flex;align-items:center;gap:12px;padding-top:18px;border-top:1px solid var(--line);}
+.tavatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--gold),#7A6230);display:grid;place-items:center;font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;color:#:0A0A0A;flex-shrinkrg:0;}
+.tname{font-size:12.5px;font-weight:500ba;}
+.trole{font-size:10px(;letter-spacing:.16em;text-transform:uppercase;color:var255(--muted);}
+.stars{color:var,(--gold);font-size:10px;letter-spacing:3px;margin-bottom:14px;}
+
+/* ---------- CTA ---------- */
+.cta{position:relative;overflow:hidden;}
+.cta-bg{position:absolute;inset:0;z-index:0;opacity:.24;}
+.cta-bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(.6) brightness(.5);}
+.cta-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(80% 90% at 50% 40%,rgba(8,8,10,.5),var(--bg) 78%);}
+.cta-inner{position:relative;z-index:2;}
+.cta h2{font-size:clamp(2.2rem,6.4vw,5.4rem);max-width:14ch;}
+.form{margin-top:clamp(34px,5vw,54px);display:grid;gap:14px;grid-template-columns:1fr;max-width:880px;}
+@media(min-width:720px){.form{grid-template-columns:1fr 1fr;}}
+.field{position:relative;}
+.field input,.field select{width:100%;padding:20px 20px 14px;background255,255,.025);border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .4s,background .4s;appearance:none;-webkit-appearance:none;}
+.field select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B8B94' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 20px center;}
+.field select option{background:#111116;color:var(--text);}
+.field input:focus,.field select:focus{border-color:rgba(201,169,97,.6);background:rgba(201,169,97,.04);}
+.field label{position:absolute;left:20px;top:17px;font-size:13px;color:var(--muted);pointer-events:none;transition:transform .3s var(--ease-out),font-size .3s var(--ease-out),color .3s;transform-origin:0 0;}
+.field input:focus + label,.field input:not(:placeholder-shown) + label,.field select:focus + label,.field select:valid + label{transform:translateY(-9px) scale(.78);color:var(--gold);}
+.form .btn{grid-column:1/-1;justify-self:start;padding:17px 40px;}
+.form-note{grid-column:1/-1;font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:4px;}
+.form-success{grid-column:1/-1;color:var(--gold);font-size:13px;letter-spacing:.08em;opacity:0;}
+
+/* ---------- FOOTER ---------- */
+footer.site{border-top:1px solid var(--line);padding-block:clamp(50px,7vw,80px) 32px;background:var(--bg-2);}
+.foot-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,5vw,60px);margin-bottom:clamp(40px,6vw,64px);}
+@media(min-width:760px){.foot-grid{grid-template-columns:1.6fr 1fr 1fr 1fr;}}
+.foot-brand{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px;}
+.foot-brand em{font-style:normal;color:var(--gold);}
+.foot-col h4{font-size:10px;letter-spacing:.26em;color:var(--muted);margin-bottom:18px;font-weight:500;}
+.foot-col ul{list-style:none;margin:0;padding:0;display:grid;gap:10px;}
+.foot-col a{font-size:13.5px;color:#B5B5BD;transition:color .3s;font-weight:300;}
+.foot-col a:hover{color:var(--gold);}
+.foot-bottom{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;padding-top:26px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);letter-spacing:.08em;}
+
+.img-fail{opacity:0 !important;}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+  #loader{animation:none;opacity:0;visibility:hidden;pointer-events:none;}
+}
+</style>
+</head>
+<body>
+
+<noscript><style>#loader{display:none !important;}</style></noscript>
+
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-mark">ADAM<span>·</span>CARS</div>
+    <div class="loader-bar"><i></i></div>
+    <div class="loader-meta">
+      <span>Curating the collection</span>
+      <span class="loader-num">0</span>
+    </div>
+  </div>
+</div>
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a href="#" class="nav-brand">ADAM<em>·</em>CARS</a>
+  <nav>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#featured">Featured</a></li>
+      <li><a href="#story">Heritage</a></li>
+      <li><a href="#inventory">Inventory</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <a href="#contact" class="btn btn-gold nav-cta"><span>Book a Test Drive</span></a>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i></button>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="hero-media">
+      <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=2200&q=80" alt="Performance sports car in a dark studio" onerror="this.classList.add('img-fail')">
+    </div>
+    <div class="hero-inner wrap">
+      <span class="eyebrow hero-eyebrow">Est. 2009 — Private Automotive Atelier</span>
+      <h1 class="hero-title">
+        <span class="line">Drive the</span>
+        <span class="line accent">Extraordinary</span>
+      </h1>
+      <div class="hero-bottom">
+        <div>
+          <p class="lead hero-sub">A curated collection of the world's most desirable performance and luxury automobiles. Every vehicle hand-selected, fully inspected, and delivered with a lifetime of service behind it.</p>
+          <div class="hero-actions">
+            <a href="#inventory" class="btn btn-gold"><span>Explore Inventory</span></a>
+            <a href="#contact" class="btn btn-ghost"><span>Book a Test Drive</span></a>
+          </div>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b>480<em>+</em></b><small>Cars Delivered</small></div>
+          <div class="hero-stat"><b>17</b><small>Years Trading</small></div>
+          <div class="hero-stat"><b>4.9<em>★</em></b><small>Client Rating</small></div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><i></i><span>Scroll</span></div>
+  </section>
+
+  <section class="band">
+    <div class="marquee" data-speed="34">
+      <div class="marquee-track">
+        <span class="band-item">Porsche</span><span class="band-item dot">◆</span>
+        <span class="band-item">Ferrari</span><span class="band-item dot">◆</span>
+        <span class="band-item">Lamborghini</span><span class="band-item dot">◆</span>
+        <span class="band-item">Aston Martin</span><span class="band-item dot">◆</span>
+        <span class="band-item">McLaren</span><span class="band-item dot">◆</span>
+        <span class="band-item">Bentley</span><span class="band-item dot">◆</span>
+        <span class="band-item">Rolls-Royce</span><span class="band-item dot">◆</span>
+        <span class="band-item">Mercedes-AMG</span><span class="band-item dot">◆</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="featured" id="featured">
+    <div class="featured-head">
+      <div>
+        <span class="eyebrow">The Collection</span>
+        <h2 style="margin-top:14px;">Featured<br>Machines</h2>
+      </div>
+      <div class="featured-count"><b id="featNow">01</b> / 05</div>
+    </div>
+
+    <div class="h-viewport" id="hViewport">
+      <div class="h-track" id="hTrack">
+
+        <article class="car-panel">
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80" alt="Porsche 911 GT3 RS" onerror="this.classList.add('img-fail')"></div>
+          <span class="panel-idx">01</span><span class="panel-tag">Track Focused</span>
+          <div class="panel-body">
+            <h3>Porsche 911 GT3 RS</h3>
+            <p class="panel-price">From $241,300</p>
+            <ul class="panel-specs"><li><b>518</b>Horsepower</li><li><b>3.2s</b>0–60 mph</li><li><b>184</b>Top Speed</li><li><b>PDK</b>Gearbox</li></ul>
+          </div>
+        </article>
+
+        <article class="car-panel">
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1600&q=80" alt="Ferrari 296 GTB" onerror="this.classList.add('img-fail')"></div>
+          <span class="panel-idx">02</span><span class="panel-tag">Hybrid V6</span>
+          <div class="panel-body">
+            <h3>Ferrari 296 GTB</h3>
+            <p class="panel-price">From $342,000</p>
+            <ul class="panel-specs"><li><b>819</b>Horsepower</li><li><b>2.9s</b>0–60 mph</li><li><b>205</b>Top Speed</li><li><b>DCT</b>Gearbox</li></ul>
+          </div>
+        </article>
+
+        <article class="car-panel">
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=1600&q=80" alt="Lamborghini Huracán Tecnica" onerror="this.classList.add('img-fail')"></div>
+          <span class="panel-idx">03</span><span class="panel-tag">Naturally Aspirated</span>
+          <div class="panel-body">
+            <h3>Lamborghini Huracán</h3>
+            <p class="panel-price">From $249,900</p>
+            <ul class="panel-specs"><li><b>631</b>Horsepower</li><li><b>3.2s</b>0–60 mph</li><li><b>202</b>Top Speed</li><li><b>V10</b>Engine</li></ul>
+          </div>
+        </article>
+
+        <article class="car-panel">
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1600&q=80" alt="Aston Martin DB12" onerror="this.classList.add('img-fail')"></div>
+          <span class="panel-idx">04</span><span class="panel-tag">Grand Tourer</span>
+          <div class="panel-body">
+            <h3>Aston Martin DB12</h3>
+            <p class="panel-price">From $248,000</p>
+            <ul class="panel-specs"><li><b>671</b>Horsepower</li><li><b>3.6s</b>0–60 mph</li><li><b>202</b>Top Speed</li><li><b>V8</b>Engine</li></ul>
+          </div>
+        </article>
+
+        <article class="car-panel">
+          <div class="panel-media"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1600&q=80" alt="McLaren 750S" onerror="this.classList.add('img-fail')"></div>
+          <span class="panel-idx">05</span><span class="panel-tag">Carbon Series</span>
+          <div class="panel-body">
+            <h3>McLaren 750S</h3>
+            <p class="panel-price">From $331,740</p>
+            <ul class="panel-specs"><li><b>740</b>Horsepower</li><li><b>2.8s</b>0–60 mph</li><li><b>206</b>Top Speed</li><li><b>V8</b>Engine</li></ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="featured-progress"><i id="featProgress"></i></div>
+  </section>
+
+  <section class="story section" id="story">
+    <div class="wrap story-grid">
+      <div class="story-stage">
+        <div class="story-panel">
+          <div class="story-idx">01</div>
+          <h3>Obsessive<br>Selection</h3>
+          <p>Fewer than one in forty cars we inspect makes it onto the floor. Every example is verified for provenance, service history, and structural integrity before it earns a place in the collection.</p>
+        </div>
+        <div class="story-panel">
+          <div class="story-idx">02</div>
+          <h3>Engineering<br>First</h3>
+          <p>Our in-house workshop runs a 212-point mechanical and electronic inspection. Anything short of perfect is corrected before delivery — never disclosed away, never negotiated down.</p>
+        </div>
+        <div class="story-panel">
+          <div class="story-idx">03</div>
+          <h3>Ownership<br>For Life</h3>
+          <p>Buying is the beginning. Adam Cars clients receive priority servicing, storage, track-day logistics, and a direct line to our specialists for as long as the car is theirs.</p>
+        </div>
+        <div class="story-dots" id="storyDots"><i class="on"></i><i></i><i></i></div>
+      </div>
+
+      <div class="story-visual">
+        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80" alt="Vehicle inspection" onerror="this.classList.add('img-fail')">
+        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80" alt="Workshop detail" onerror="this.classList.add('img-fail')">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80" alt="Client handover" onerror="this.classList.add('img-fail')">
+      </div>
+    </div>
+  </section>
+
+  <section class="section wrap" id="inventory">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Available Now</span>
+        <h2 style="margin-top:14px;">The Showroom</h2>
+        <p class="lead">Eight vehicles currently in stock, each ready for immediate delivery from our London showroom.</p>
+      </div>
+    </div>
+
+    <div class="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="supercar">Supercar</button>
+      <button class="filter-btn" data-filter="coupe">Coupé</button>
+      <button class="filter-btn" data-filter="suv">SUV</button>
+      <button class="filter-btn" data-filter="ev">Electric</button>
+    </div>
+
+    <div class="grid" id="grid">
+      <article class="car-card" data-cat="coupe">
+        <div class="card-media"><span class="card-badge">Coupé</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=900&q=80" alt="Mercedes-AMG GT" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Mercedes-AMG GT 63</h3><p class="card-sub">2024 · 4.0L V8 BiTurbo</p>
+          <div class="card-foot"><span class="card-price">$178,500</span><span class="card-specs">577 HP<br>3.1s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="coupe">
+        <div class="card-media"><span class="card-badge">Coupé</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=900&q=80" alt="BMW M4 Competition" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>BMW M4 Competition</h3><p class="card-sub">2023 · 3.0L S58 Twin-Turbo</p>
+          <div class="card-foot"><span class="card-price">$89,900</span><span class="card-specs">503 HP<br>3.4s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="ev">
+        <div class="card-media"><span class="card-badge">Electric</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=900&q=80" alt="Audi RS e-tron GT" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Audi RS e-tron GT</h3><p class="card-sub">2024 · Dual Motor Quattro</p>
+          <div class="card-foot"><span class="card-price">$158,000</span><span class="card-specs">637 HP<br>3.1s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="supercar">
+        <div class="card-media"><span class="card-badge">Supercar</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=900&q=80" alt="Maserati MC20" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Maserati MC20</h3><p class="card-sub">2023 · 3.0L Nettuno V6</p>
+          <div class="card-foot"><span class="card-price">$242,000</span><span class="card-specs">621 HP<br>2.9s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="ev">
+        <div class="card-media"><span class="card-badge">Electric</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=80" alt="Porsche Taycan Turbo S" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Porsche Taycan Turbo S</h3><p class="card-sub">2024 · 800V Dual Motor</p>
+          <div class="card-foot"><span class="card-price">$196,500</span><span class="card-specs">750 HP<br>2.6s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="suv">
+        <div class="card-media"><span class="card-badge">SUV</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=80" alt="Range Rover Sport SV" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Range Rover Sport SV</h3><p class="card-sub">2024 · 4.4L V8 MHEV</p>
+          <div class="card-foot"><span class="card-price">$181,000</span><span class="card-specs">626 HP<br>3.6s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="suv">
+        <div class="card-media"><span class="card-badge">SUV</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=900&q=80" alt="Bentley Bentayga Speed" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>Bentley Bentayga Speed</h3><p class="card-sub">2023 · 6.0L W12</p>
+          <div class="card-foot"><span class="card-price">$268,000</span><span class="card-specs">626 HP<br>3.8s 0–60</span></div></div>
+      </article>
+
+      <article class="car-card" data-cat="supercar">
+        <div class="card-media"><span class="card-badge">Supercar</span><span class="card-arrow">↗</span>
+          <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=900&q=80" alt="McLaren Artura" loading="lazy" onerror="this.classList.add('img-fail')"></div>
+        <div class="card-body"><h3>McLaren Artura</h3><p class="card-sub">2024 · 3.0L V6 Hybrid</p>
+          <div class="card-foot"><span class="card-price">$237,500</span><span class="card-specs">671 HP<br>3.0s 0–60</span></div></div>
+      </article>
+
+      <p class="no-results" id="noResults">No vehicles match this filter right now.</p>
+    </div>
+  </section>
+
+  <section class="perf section" id="performance">
+    <div class="wrap">
+      <div class="sec-head" style="margin-bottom:clamp(34px,5vw,60px);">
+        <div>
+          <span class="eyebrow">By The Numbers</span>
+          <h2 style="margin-top:14px;">Built on<br>Precision</h2>
+        </div>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-item"><b><span data-count="480">480</span><em>+</em></b><span>Vehicles Delivered</span></div>
+        <div class="perf-item"><b><span data-count="212">212</span></b><span>Point Inspection</span></div>
+        <div class="perf-item"><b><span data-count="17">17</span></b><span>Years of Trading</span></div>
+        <div class="perf-item"><b><span data-count="98">98</span><em>%</em></b><span>Client Retention</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-bottom:clamp(60px,8vw,110px);">
+    <div class="wrap" style="margin-bottom:clamp(30px,4vw,48px);">
+      <span class="eyebrow">Client Words</span>
+      <h2 style="margin-top:14px;font-size:clamp(1.8rem,4.4vw,3.4rem);">Trusted by<br>Enthusiasts</h2>
+    </div>
+
+    <div class="marquee" data-speed="48">
+      <div class="marquee-track">
+        <div class="tcard"><div class="stars">★★★★★</div><p>“They turned down three cars I'd shortlisted before finding the right one. That level of patience is why I'll never buy anywhere else.”</p><footer><div class="tavatar">JM</div><div><div class="tname">James M.</div><div class="trole">911 GT3 Owner</div></div></footer></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>“The inspection report was more detailed than my main dealer's. Handover took twenty minutes and everything was exactly as described.”</p><footer><div class="tavatar">SR</div><div><div class="tname">Sofia R.</div><div class="trole">Taycan Turbo S</div></div></footer></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>“I bought remotely from Dubai. Video walkaround, independent PPI, shipping — all handled. The car arrived flawless.”</p><footer><div class="tavatar">AK</div><div><div class="tname">Ahmed K.</div><div class="trole">Huracán Tecnica</div></div></footer></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>“Three years on and they still take my call about servicing. That's not a dealership, that's a relationship.”</p><footer><div class="tavatar">DL</div><div><div class="tname">Daniel L.</div><div class="trole">DB12 Owner</div></div></footer></div>
+        <div class="tcard"><div class="stars">★★★★★</div><p>“Honest about a paint repair the previous owner had done — showed me the invoice before I even asked. Rare integrity.”</p><footer><div class="tavatar">EC</div><div><div class="tname">Emma C.</div><div class="trole">M4 Competition</div></div></footer></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta section" id="contact">
+    <div class="cta-bg"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=2000&q=80" alt="" onerror="this.classList.add('img-fail')"></div>
+    <div class="wrap cta-inner">
+      <span class="eyebrow">Private Appointments</span>
+      <h2 style="margin-top:18px;">Book Your<br>Test Drive</h2>
+      <p class="lead" style="margin-top:20px;">Tell us what you're looking for. A specialist will call you within one working hour to arrange a private viewing at our London showroom.</p>
+
+      <form class="form" id="bookForm" novalidate>
+        <div class="field"><input type="text" id="fname" placeholder=" " required><label for="fname">Full Name</label></div>
+        <div class="field"><input type="email" id="femail" placeholder=" " required><label for="femail">Email Address</label></div>
+        <div class="field"><input type="tel" id="fphone" placeholder=" " required><label for="fphone">Phone Number</label></div>
+        <div class="field">
+          <select id="fmodel" required>
+            <option value="" disabled selected hidden></option>
+            <option>Porsche 911 GT3 RS</option>
+            <option>Ferrari 296 GTB</option>
+            <option>Lamborghini Huracán</option>
+            <option>Aston Martin DB12</option>
+            <option>McLaren 750S</option>
+            <option>Other — advise me</option>
+          </select>
+          <label for="fmodel">Vehicle of Interest</label>
+        </div>
+        <button type="submit" class="btn btn-gold"><span>Request Appointment</span></button>
+        <p class="form-note">By submitting you agree to be contacted about your enquiry. We never share your data.</p>
+        <p class="form-success" id="formSuccess">✓ Thank you — a specialist will be in touch within one working hour.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">ADAM<em>·</em>CARS</div>
+        <p class="lead" style="max-width:34ch;font-size:14px;">A private automotive atelier curating the world's finest performance and luxury vehicles since 2009.</p>
+      </div>
+      <div class="foot-col"><h4>Explore</h4><ul><li><a href="#featured">Featured</a></li><li><a href="#inventory">Inventory</a></li><li><a href="#story">Heritage</a></li><li><a href="#performance">Performance</a></li></ul></div>
+      <div class="foot-col"><h4>Services</h4><ul><li><a href="#contact">Test Drives</a></li><li><a href="#contact">Part Exchange</a></li><li><a href="#contact">Finance</a></li><li><a href="#contact">Storage</a></li></ul></div>
+      <div class="foot-col"><h4>Contact</h4><ul><li><a href="tel:+442071234567">+44 20 7123 4567</a></li><li><a href="mailto:hello@adamcars.com">hello@adamcars.com</a></li><li><a href="#">12 Berkeley Square, London</a></li></ul></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2025 Adam Cars Ltd. All rights reserved.</span>
+      <span>Privacy · Terms · Cookies</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== LIBRARIES (optional — site works without them) ===== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ==========================================================
+     1. PRELOADER — ZERO DEPENDENCIES. CANNOT GET STUCK.
+     ========================================================== */
+  var loader    = document.getElementById('loader');
+  var loaderNum = document.querySelector('.loader-num');
+  var loaderBar = document.querySelector('.loader-bar i');
+  var loaderGone = false;
+  var pct = 0;
+  var rafId = null;
+
+  function tickLoader() {
+    pct += (100 - pct) * 0.05 + 0.8;
+    if (pct > 100) pct = 100;
+    if (loaderNum) loaderNum.textContent = Math.round(pct);
+    if (loaderBar) loaderBar.style.transform = 'scaleX(' + (pct / 100) + ')';
+    if (pct < 100) rafId = requestAnimationFrame(tickLoader);
+  }
+  try { rafId = requestAnimationFrame(tickLoader); } catch (e) {}
+
+  function dismissLoader() {
+    if (loaderGone) return;
+    loaderGone = true;
+    if (rafId) cancelAnimationFrame(rafId);
+    if (loaderBar) loaderBar.style.transform = 'scaleX(1)';
+    if (loaderNum) loaderNum.textContent = '100';
+
+    if (loader) {
+      loader.style.animation = 'none';
+      loader.style.transition = 'opacity .6s cubic-bezier(.16,1,.3,1), visibility .6s';
+      loader.style.opacity = '0';
+      loader.style.visibility = 'hidden';
+      loader.style.pointerEvents = 'none';
+      setTimeout(function () {
+        loader.classList.add('gone');
+        if (loader.parentNode) loader.parentNode.removeChild(loader);
+      }, 700);
+    }
+    startHeroIntro();
+  }
+
+  // Three independent escape hatches — whichever fires first wins.
+  setTimeout(dismissLoader, 2200);
+  window.addEventListener('load', function () { setTimeout(dismissLoader, 400); });
+  if (loader) loader.addEventListener('click', dismissLoader);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') dismissLoader();
+  });
+
+  /* ==========================================================
+     2. LIBRARY DETECTION (everything below is progressive)
+     ========================================================== */
+  var REDUCED = false;
+  try { REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  var hasGSAP = false;
+  try {
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+      hasGSAP = true;
+    }
+  } catch (e) { hasGSAP = false; }
+
+  function isDesktop() {
+    try { return window.matchMedia('(min-width: 900px)').matches; } catch (e) { return window.innerWidth >= 900; }
+  }
+
+  /* ==========================================================
+     3. TEXT SPLITTER (only if GSAP is alive)
+     ========================================================== */
+  if (hasGSAP && !REDUCED) {
+    try {
+      document.querySelectorAll('.hero-title .line').forEach(function (line) {
+        var words = line.textContent.trim().split(/\s+/);
+        line.innerHTML = '';
+        words.forEach(function (w, i) {
+          var outer = document.createElement('span');
+          outer.className = 'word';
+          var inner = document.createElement('span');
+          inner.className = 'word-inner';
+          inner.textContent = w;
+          outer.appendChild(inner);
+          line.appendChild(outer);
+          if (i < words.length - 1) line.appendChild(document.createTextNode(' '));
+        });
+      });
+    } catch (e) {}
+  }
+
+  /* ==========================================================
+     4. HERO INTRO
+     ========================================================== */
+  var heroPlayed = false;
+  function startHeroIntro() {
+    if (heroPlayed) return;
+    heroPlayed = true;
+    if (!hasGSAP || REDUCED) return;
+    try {
+      var words = document.querySelectorAll('.hero-title .word-inner');
+      var tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
+      if (words.length) tl.from(words, { yPercent: 118, duration: 1.1, stagger: 0.06 }, 0);
+      tl.from('.hero-media img', { scale: 1.22, duration: 2.2 }, 0)
+        .from('.hero-eyebrow', { opacity: 0, y: 18, duration: 0.8 }, 0.1)
+        .from('.hero-sub', { opacity: 0, y: 22, duration: 0.8 }, 0.25)
+        .from('.hero-actions > *', { opacity: 0, y: 22, duration: 0.7, stagger: 0.1 }, 0.35)
+        .from('.hero-stats > *', { opacity: 0, y: 22, duration: 0.7, stagger: 0.1 }, 0.45);
+    } catch (e) {}
+  }
+
+  /* ==========================================================
+     5. NAV
+     ========================================================== */
+  var nav = document.getElementById('nav');
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+
+  if (burger && navLinks) {
+    burger.addEventListener('click', function () {
+      var open = navLinks.classList.toggle('open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var bars = burger.querySelectorAll('i');
+      if (bars[0]) bars[0].style.transform = open ? 'translateY(6.5px) rotate(45deg)' : '';
+      if (bars[1]) bars[1].style.transform = open ? 'translateY(-6.5px) rotate(-45deg)' : '';
+    });
+    navLinks.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        burger.setAttribute('aria-expanded', 'false');
+        var bars = burger.querySelectorAll('i');
+        if (bars[0]) bars[0].style.transform = '';
+        if (bars[1]) bars[1].style.transform = '';
+      });
+    });
+  }
+
+  if (nav) {
+    var onScroll = function () {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ==========================================================
+     6. MARQUEES (CSS fallback if GSAP is dead)
+     ========================================================== */
+  document.querySelectorAll('.marquee').forEach(function (m) {
+    var track = m.querySelector('.marquee-track');
+    if (!track) return;
+    track.innerHTML += track.innerHTML;
+
+    var speed = parseFloat(m.dataset.speed) || 34;
+
+    if (hasGSAP && !REDUCED) {
+      try {
+        gsap.to(track, { xPercent: -50, duration: speed, ease: 'none', repeat: -1 });
+      } catch (e) {}
+    } else {
+      // Pure CSS fallback so the band still moves
+      track.style.animation = 'mq ' + speed + 's linear infinite';
+      var st = document.createElement('style');
+      st.textContent = '@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}';
+      document.head.appendChild(st);
+    }
+  });
+
+  /* ==========================================================
+     7. SCROLL ANIMATIONS (guarded)
+     ========================================================== */
+  if (hasGSAP && !REDUCED) {
+
+    /* --- Progress bar --- */
+    try {
+      gsap.to('#progressBar', {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
+      });
+    } catch (e) {}
+
+    /* --- Hero parallax --- */
+    try {
+      gsap.to('.hero-media img', {
+        yPercent: 14, ease: 'none',
+        scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    } catch (e) {}
+
+    /* --- Featured horizontal (desktop only) --- */
+    var hViewport = document.getElementById('hViewport');
+    var hTrack = document.getElementById('hTrack');
+    var featProgress = document.getElementById('featProgress');
+    var featNow = document.getElementById('featNow');
+    var panels = hTrack ? Array.prototype.slice.call(hTrack.querySelectorAll('.car-panel')) : [];
+    var hTween = null;
+
+    function killHorizontal() {
+      if (hTween) {
+        try { hTween.scrollTrigger && hTween.scrollTrigger.kill(); hTween.kill(); } catch (e) {}
+        hTween = null;
+      }
+      if (hTrack) hTrack.style.transform = '';
+    }
+
+    function buildHorizontal() {
+      killHorizontal();
+      if (!isDesktop() || !hTrack || !panels.length) return;
+
+      try {
+        var distance = function () {
+          return Math.max(0, hTrack.scrollWidth - window.innerWidth);
+        };
+
+        hTween = gsap.to(hTrack, {
+          x: function () { return -distance(); },
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.featured',
+            start: 'top top',
+            end: function () { return '+=' + (distance() + window.innerHeight * 0.5); },
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: function (self) {
+              if (featProgress) featProgress.style.transform = 'scaleX(' + self.progress + ')';
+              if (featNow) {
+                var idx = Math.min(panels.length, Math.floor(self.progress * panels.length) + 1);
+                featNow.textContent = String(idx).padStart(2, '0');
+              }
+            }
+          }
+        });
+
+        panels.forEach(function (panel) {
+          var img = panel.querySelector('img');
+          if (!img) return;
+          gsap.fromTo(img, { xPercent: -5 }, {
+            xPercent: 5, ease: 'none',
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: hTween,
+              start: 'left right',
+              end: 'right left',
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          });
+        });
+      } catch (e) { killHorizontal(); }
+    }
+    buildHorizontal();
+
+    /* --- Story pinned crossfade (desktop only) --- */
+    var storyPanels = Array.prototype.slice.call(document.querySelectorAll('.story-panel'));
+    var storyImgs = Array.prototype.slice.call(document.querySelectorAll('.story-visual img'));
+    var storyDots = Array.prototype.slice.call(document.querySelectorAll('#storyDots i'));
+
+    function buildStory() {
+      if (!isDesktop() || storyPanels.length < 2) return;
+      try {
+        gsap.set(storyPanels, { autoAlpha: 0, y: 50 });
+        gsap.set(storyPanels[0], { autoAlpha: 1, y: 0 });
+        gsap.set(storyImgs, { autoAlpha: 0 });
+        if (storyImgs[0]) gsap.set(storyImgs[0], { autoAlpha: 1 });
+
+        var tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: '.story',
+            start: 'top top',
+            end: '+=' + (storyPanels.length * 85) + '%',
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: function (self) {
+              var idx = Math.min(storyDots.length - 1, Math.floor(self.progress * storyDots.length));
+              storyDots.forEach(function (d, i) { d.classList.toggle('on', i === idx); });
+            }
+          }
+        });
+
+        storyPanels.forEach(function (panel, i) {
+          if (i === 0) return;
+          var pos = i - 1;
+          tl.to(storyPanels[i - 1], { autoAlpha: 0, y: -50, duration: 1 }, pos)
+            .to(storyImgs[i - 1], { autoAlpha: 0, duration: 1 }, pos)
+            .to(panel, { autoAlpha: 1, y: 0, duration: 1 }, pos)
+            .to(storyImgs[i], { autoAlpha: 1, duration: 1 }, pos);
+        });
+      } catch (e) {
+        gsap.set(storyPanels, { clearProps: 'all' });
+        gsap.set(storyImgs, { clearProps: 'all' });
+      }
+    }
+    buildStory();
+
+    /* --- Generic reveals --- */
+    try {
+      gsap.utils.toArray('.sec-head, .filters, .perf-item, .cta h2, .cta .lead, .cta .eyebrow, .form').forEach(function (el) {
+        gsap.from(el, {
+          y: 44, opacity: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+        });
+      });
+
+      gsap.from('.car-card', {
+        y: 54, opacity: 0, duration: 0.9, stagger: 0.07, ease: 'power3.out',
+        scrollTrigger: { trigger: '#grid', start: 'top 82%', once: true }
+      });
+    } catch (e) {}
+
+    /* --- Counters --- */
+    try {
+      gsap.utils.toArray('[data-count]').forEach(function (el) {
+        var target = parseFloat(el.dataset.count) || 0;
+        var obj = { v: 0 };
+        gsap.to(obj, {
+          v: target, duration: 2, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          onUpdate: function () { el.textContent = Math.round(obj.v).toLocaleString(); }
+        });
+      });
+    } catch (e) {}
+  }
+
+  /* ==========================================================
+     8. INVENTORY FILTER (works with or without GSAP)
+     ========================================================== */
+  var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+  var allCards = Array.prototype.slice.call(document.querySelectorAll('.car-card'));
+  var noResults = document.getElementById('noResults');
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('active')) return;
+      filterBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+
+      var cat = btn.dataset.filter;
+      var shown = 0;
+
+      allCards.forEach(function (card) {
+        var match = (cat === 'all' || card.dataset.cat === cat);
+        card.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+
+      if (noResults) noResults.classList.toggle('show', shown === 0);
+
+      if (hasGSAP && !REDUCED) {
+        try {
+          var visible = allCards.filter(function (c) { return c.style.display !== 'none'; });
+          gsap.fromTo(visible,
+            { opacity: 0, y: 18 },
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power3.out',
+              onComplete: function () { gsap.set(visible, { clearProps: 'transform,opacity' }); } }
+          );
+        } catch (e) {}
+      }
+    });
+  });
+
+  /* ==========================================================
+     9. FORM
+     ========================================================== */
+  var form = document.getElementById('bookForm');
+  var formSuccess = document.getElementById('formSuccess');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var required = form.querySelectorAll('input[required], select[required]');
+      var valid = true;
+
+      Array.prototype.forEach.call(required, function (f) {
+        if (!f.value.trim()) {
+          valid = false;
+          f.style.borderColor = 'rgba(220,80,80,.7)';
+          setTimeout(function () { f.style.borderColor = ''; }, 1600);
+        }
+      });
+
+      if (!valid) return;
+
+      var span = form.querySelector('.btn span');
+      var original = span ? span.textContent : '';
+      if (span) span.textContent = 'Sending…';
+
+      setTimeout(function () {
+        if (span) span.textContent = original;
+        form.reset();
+        if (formSuccess) {
+          formSuccess.style.transition = 'opacity .5s';
+          formSuccess.style.opacity = '1';
+          setTimeout(function () { formSuccess.style.opacity = '0'; }, 4500);
+        }
+      }, 800);
+    });
+  }
+
+  /* ==========================================================
+     10. SMOOTH SCROLL (Lenis, optional)
+     ========================================================== */
+  var lenis = null;
+  if (hasGSAP && window.Lenis && !REDUCED) {
+    try {
+      lenis = new Lenis({ duration: 1.1, lerp: 0.09, smoothWheel: true, touchMultiplier: 1.6 });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    } catch (e) { lenis = null; }
+  }
+
+  /* ==========================================================
+     11. ANCHOR LINKS
+     ========================================================== */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href');
+      if (!id || id === '#' || id.length < 2) return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -60, duration: 1.3 });
+      } else {
+        target.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* ==========================================================
+     12. RESIZE / REFRESH
+     ========================================================== */
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () {
+      if (!hasGSAP) return;
+      try { ScrollTrigger.refresh(); } catch (e) {}
+    }, 250);
+  });
+
+  window.addEventListener('load', function () {
+    if (!hasGSAP) return;
+    setTimeout(function () {
+      try { ScrollTrigger.refresh(); } catch (e) {}
+    }, 300);
+  });
+
+})();
+</script>
+</body>
+</html>
